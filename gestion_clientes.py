@@ -58,11 +58,22 @@ def gestionar_clientes():
             cursor.execute(sql,(cuit,))
             conn.commit()
             print(f"elimino el cliente cuit: {cuit}")
+        
+        elif opcion=="4":
+            cursor.execute("SELECT * FROM clientes")
+            clientes = cursor.fetchall()   #crea una lista de tuplas de clientes
+            
+            if clientes:
+                for x in clientes:
+                    print(x)
+                    print("=========")
+            else:
+                print("No hay clientes registrados")
 
         elif opcion=="5":
             break
         else:
-            break
+            print("Opción no valida.")
     cursor.close()
     conn.close()
 
