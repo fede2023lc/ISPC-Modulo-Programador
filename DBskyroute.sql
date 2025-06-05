@@ -22,6 +22,7 @@ CREATE TABLE ventas (
   cant_dias_de_viaje int,
   Estado varchar(20),
   PRIMARY KEY (codigo_venta),
-  FOREIGN KEY (codigo_destino) REFERENCES destinos(codigo_destino)
+  FOREIGN KEY (codigo_destino) REFERENCES destinos(codigo_destino),
+  FOREIGN KEY (Cuit) REFERENCES clientes(Cuit)
 );
 
