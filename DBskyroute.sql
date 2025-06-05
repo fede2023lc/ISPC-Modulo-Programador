@@ -18,6 +18,7 @@ CREATE TABLE destinos (
 CREATE TABLE ventas (
   codigo_venta int AUTO_INCREMENT,
   codigo_destino int,
+  Cuit int,
   fecha_de_venta date, 
   cant_dias_de_viaje int,
   Estado varchar(20),
