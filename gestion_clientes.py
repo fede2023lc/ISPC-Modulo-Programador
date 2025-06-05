@@ -53,13 +53,14 @@ def gestionar_clientes():
                 print("No se encontro cliente con ese cuit")
 
         elif opcion=="3": #eliminar cliente
-            cuit=input("ingresar cuit del cliente que quiera eliminar:")
+            cuit=input("ingresar cuit del cliente que quiera eliminar:")   #podriamos agregar un Select y un if, en caso que no exista el cliente
             sql = "DELETE FROM clientes WHERE cuit = %s "
             cursor.execute(sql,(cuit,))
             conn.commit()
             print(f"elimino el cliente cuit: {cuit}")
         
         elif opcion=="4":
+            print("Lista de Clientes de skyroute")
             cursor.execute("SELECT * FROM clientes")
             clientes = cursor.fetchall()   #crea una lista de tuplas de clientes
             
