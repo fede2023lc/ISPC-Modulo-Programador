@@ -26,30 +26,44 @@ def gestionar_clientes():
                 INSERT INTO clientes (cuit, razon_social , mail)
                 VALUES (%s, %s, %s)
             """
-
             # Ejecutar con los valores ingresados
             cursor.execute(query, (cuit, razon_social, mail))
             conn.commit()
 
             print(f"Cliente insertado cliente cuit: {cuit}")
 
-            cursor.close()
-            conn.close()
-
         elif opcion=="2": #modifcar
             print("Modificar cliente")
-            print("Ingrese cuit del cliente")
+            cuit = input("Ingrese el cuit del cliente que desea modificar: ")
+            cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
+            cliente = cursor.fetchone()    #crea una tupla con los datos del cliente.
+
+            if cliente:
+                print("Datos actuales del cliente:",cliente)   #imprimo lod datos del cliente 
+                razon_social=input("Ingrese la nueva razón social: ")
+                mail=input("Ingrese el nuevo mail:")
+
+                cursor.execute("""
+                UPDATE clientes
+                SET razon_social =%s, mail =%s 
+                WHERE cuit = %s""", (razon_social ,mail,cuit))
+                conn.commit()
+                print("cliente modificado")
+            else:
+                print("No se encontro cliente con ese cuit")
+
         elif opcion=="3": #eliminar cliente
             cuit=input("ingresar cuit del cliente que quiera eliminar:")
             sql = "DELETE FROM clientes WHERE cuit = %s "
             cursor.execute(sql,(cuit,))
             conn.commit()
             print(f"elimino el cliente cuit: {cuit}")
-            cursor.close()
-            conn.close()
+
         elif opcion=="5":
             break
         else:
             break
+    cursor.close()
+    conn.close()
 
 # gestionar_clientes()
