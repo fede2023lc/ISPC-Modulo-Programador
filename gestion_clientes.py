@@ -5,9 +5,9 @@ def gestionar_clientes():
     while True:
         print("Gestionar clientes")
         print("1. Agregar nuevo cliente")
-        print("2. Modificar cliente")
-        print("3. Eliminar cliente")
-        print("4. Ver clientes")
+        print("2. Ver clientes")
+        print("3. Modificar cliente")
+        print("4. Eliminar cliente")
         print("5. Atrás")
         opcion= input("Ingrese opción:")
         print(f"Seleccionó opción: {opcion}")
@@ -30,9 +30,21 @@ def gestionar_clientes():
             cursor.execute(query, (cuit, razon_social, mail))
             conn.commit()
 
-            print(f"Cliente insertado cliente cuit: {cuit}")
+            print(f"Ha agregado al cliente {razon_social} Cuit: {cuit}")
 
-        elif opcion=="2": #modifcar
+        elif opcion=="2": #ver clientes
+            print("Lista de Clientes de skyroute")
+            cursor.execute("SELECT * FROM clientes")
+            clientes = cursor.fetchall()   #crea una lista de tuplas de clientes
+            
+            if clientes:
+                for x in clientes:
+                    print(x)
+                    print("=========")
+            else:
+                print("No hay clientes registrados")
+
+        elif opcion=="3": #modifcar
             print("Modificar cliente")
             cuit = input("Ingrese el cuit del cliente que desea modificar: ")
             cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
@@ -52,24 +64,14 @@ def gestionar_clientes():
             else:
                 print("No se encontro cliente con ese cuit")
 
-        elif opcion=="3": #eliminar cliente
+        elif opcion=="4": #eliminar cliente
             cuit=input("ingresar cuit del cliente que quiera eliminar:")   #podriamos agregar un Select y un if, en caso que no exista el cliente
             sql = "DELETE FROM clientes WHERE cuit = %s "
             cursor.execute(sql,(cuit,))
             conn.commit()
             print(f"elimino el cliente cuit: {cuit}")
         
-        elif opcion=="4":
-            print("Lista de Clientes de skyroute")
-            cursor.execute("SELECT * FROM clientes")
-            clientes = cursor.fetchall()   #crea una lista de tuplas de clientes
-            
-            if clientes:
-                for x in clientes:
-                    print(x)
-                    print("=========")
-            else:
-                print("No hay clientes registrados")
+
 
         elif opcion=="5":
             break
