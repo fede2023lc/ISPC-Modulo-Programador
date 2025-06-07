@@ -1,4 +1,4 @@
-import conectormysql
+import conectormysql  #módulo para obtener el conector y cursor de MySQL para poder hacer modificaciones en la base de datos skyroute
 
 def gestionar_clientes():
 
@@ -21,19 +21,24 @@ def gestionar_clientes():
             cuit = input("Cuit: ")
             razon_social = input("Razon Social: ")
             mail = input("ingresar mail: ")
-
-            # Consulta SQL para insertar
-            query = """
-                INSERT INTO clientes (cuit, razon_social , mail)
-                VALUES (%s, %s, %s)
-            """
-            # %s es un marcador de posición para los valores que se van a insertar
-            # Los valores se pasan como una tupla al ejecutar la consulta
-            # Ejecutar con los valores ingresados
-            cursor.execute(query, (cuit, razon_social, mail))
-            conector.commit()# Commit para guardar los cambios en la base de datos
-
-            print(f"Ha agregado al cliente {razon_social} Cuit: {cuit}")
+            
+            try:
+                # Consulta SQL para insertar
+                query = """
+                    INSERT INTO clientes (cuit, razon_social , mail)
+                    VALUES (%s, %s, %s)
+                """
+                # %s es un marcador de posición para los valores que se van a insertar
+                # Los valores se pasan como una tupla al ejecutar la consulta
+                cursor.execute(query, (cuit, razon_social, mail)) # Ejecutar consulta con los valores ingresados
+                conector.commit()# Commit para guardar los cambios en la base de datos
+                print(f"Ha agregado al cliente {razon_social} Cuit: {cuit}")
+            except Exception as e:
+                print("Error al agregar cliente:", e)
+        # Si ocurre un error, se captura la excepción y se imprime un mensaje de error
+        #Acá pueden ocurrir varios tipos de errores al ingresar datos por teclado, como por ejemplo:
+        # - Error de duplicado de clave primaria (si el cuit ya existe) 
+        # - Error de tipo de dato (si se ingresa letras en lugar de números en el cuit)
         elif opcion=="2": #ver clientes
             print("Lista de Clientes de skyroute")
             print("================================")
@@ -69,18 +74,29 @@ def gestionar_clientes():
                 print("No se encontro cliente con ese cuit")
 
         elif opcion=="4": #eliminar cliente
-            cuit=input("ingresar cuit del cliente que quiera eliminar:")   #podriamos agregar un Select y un if, en caso que no exista el cliente
-            sql = "DELETE FROM clientes WHERE cuit = %s "
-            cursor.execute(sql,(cuit,)) 
-            conector.commit()
-            print(f"elimino el cliente cuit: {cuit}")
-        
+            cuit=input("ingresar cuit del cliente que quiera eliminar:") 
+            cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
+            cliente = cursor.fetchone() #fetchone crea una tupla con los datos del cliente
 
+            if cliente:
+                print("¿Está seguro que desea eliminar el cliente:", cliente, "?")
+                print("Esta acción no se puede deshacer ⚠️")
+                respuesta = input("Ingrese 'si' para confirmar o 'no' para cancelar: ")
+                if respuesta.lower() == 'si':
+                    sql = "DELETE FROM clientes WHERE cuit = %s "
+                    cursor.execute(sql,(cuit,)) 
+                    conector.commit()
+                    print(f"elimino el cliente cuit: {cuit}")
+                else:
+                    print("Eliminación cancelada.")
+            else:
+                print("No se encontro cliente con ese cuit")
 
         elif opcion=="5":
             break
         else:
             print("Opción no valida.")
+        print("================================")
     cursor.close()
     conector.close()
 
