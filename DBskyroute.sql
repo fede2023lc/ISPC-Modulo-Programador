@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS skyroute;
 USE skyroute;
 
 CREATE TABLE clientes (
-  cuit int,
+  cuit BIGINT,
   razon_social varchar(60),
   mail varchar(60),
   PRIMARY KEY (Cuit)
