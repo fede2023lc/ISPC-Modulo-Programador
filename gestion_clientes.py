@@ -46,6 +46,8 @@ def gestionar_clientes():
             clientes = cursor.fetchall()   #fetchall crea una lista de clientes (lista de tuplas)
 
             if clientes:
+                print("Clientes registrados:")
+                print("(Cuit, Razon Social, Mail)")
                 for x in clientes:
                     print(x)
                     print("=========")
@@ -100,4 +102,3 @@ def gestionar_clientes():
     cursor.close()
     conector.close()
 
-# gestionar_clientes()
