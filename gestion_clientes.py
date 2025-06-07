@@ -11,8 +11,9 @@ def gestionar_clientes():
         print("5. Atrás")
         opcion= input("Ingrese opción:")
         print(f"Seleccionó opción: {opcion}")
-        conn, cursor = conectormysql.conectarDB() #conn y cursor son los return de la funcion conectarDB definida en el modulo conectormysql
-
+        conector, cursor = conectormysql.conectarDB() 
+        #conector y cursor son los return de la funcion conectarDB definida en el modulo conectormysql.py
+        #conector es la conexion a la base de datos y cursor es el cursor para ejecutar consultas SQL
         if opcion=="1": #agregar cliente
             print("Agregar nuevo cliente")
             print("Ingrese los datos del cliente")
@@ -26,17 +27,19 @@ def gestionar_clientes():
                 INSERT INTO clientes (cuit, razon_social , mail)
                 VALUES (%s, %s, %s)
             """
+            # %s es un marcador de posición para los valores que se van a insertar
+            # Los valores se pasan como una tupla al ejecutar la consulta
             # Ejecutar con los valores ingresados
             cursor.execute(query, (cuit, razon_social, mail))
-            conn.commit()
+            conector.commit()# Commit para guardar los cambios en la base de datos
 
             print(f"Ha agregado al cliente {razon_social} Cuit: {cuit}")
-
         elif opcion=="2": #ver clientes
             print("Lista de Clientes de skyroute")
-            cursor.execute("SELECT * FROM clientes")#cursor 
-            clientes = cursor.fetchall()   #crea una lista de tuplas de clientes
-            
+            print("================================")
+            cursor.execute("SELECT * FROM clientes")#consulta SQL para seleccionar todos los clientes
+            clientes = cursor.fetchall()   #fetchall crea una lista de clientes (lista de tuplas)
+
             if clientes:
                 for x in clientes:
                     print(x)
@@ -47,19 +50,20 @@ def gestionar_clientes():
         elif opcion=="3": #modifcar
             print("Modificar cliente")
             cuit = input("Ingrese el cuit del cliente que desea modificar: ")
-            cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
+            cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,)) #Consulta SQL para seleccionar el cliente por cuit
+            # %s es un marcador de posición para el valor del cuit
             cliente = cursor.fetchone()    #crea una tupla con los datos del cliente.
 
             if cliente:
-                print("Datos actuales del cliente:",cliente)   #imprimo lod datos del cliente 
+                print("Datos actuales del cliente:",cliente)   #imprimo tupla cliente
                 razon_social=input("Ingrese la nueva razón social: ")
-                mail=input("Ingrese el nuevo mail:")
+                mail=input("Ingrese el nuevo mail:") #el cuit no se modifica, ya que es la clave primaria
 
                 cursor.execute("""
                 UPDATE clientes
                 SET razon_social =%s, mail =%s 
                 WHERE cuit = %s""", (razon_social ,mail,cuit))
-                conn.commit()
+                conector.commit() # Commit para guardar los cambios en la base de datos
                 print("cliente modificado")
             else:
                 print("No se encontro cliente con ese cuit")
@@ -67,8 +71,8 @@ def gestionar_clientes():
         elif opcion=="4": #eliminar cliente
             cuit=input("ingresar cuit del cliente que quiera eliminar:")   #podriamos agregar un Select y un if, en caso que no exista el cliente
             sql = "DELETE FROM clientes WHERE cuit = %s "
-            cursor.execute(sql,(cuit,))
-            conn.commit()
+            cursor.execute(sql,(cuit,)) 
+            conector.commit()
             print(f"elimino el cliente cuit: {cuit}")
         
 
@@ -78,6 +82,6 @@ def gestionar_clientes():
         else:
             print("Opción no valida.")
     cursor.close()
-    conn.close()
+    conector.close()
 
 # gestionar_clientes()
