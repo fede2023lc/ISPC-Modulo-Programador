@@ -46,11 +46,9 @@ def gestionar_clientes():
             clientes = cursor.fetchall()   #fetchall crea una lista de clientes (lista de tuplas)
 
             if clientes:
-                print("Clientes registrados:")
-                print("(Cuit, Razon Social, Mail)")
                 for x in clientes:
-                    print(x)
-                    print("=========")
+                    print(f"Cuit:{x[0]}     Razon Social:{x[1]}     Mail: {x[2]}")
+                    print(".....................................................................")
             else:
                 print("No hay clientes registrados")
 
@@ -81,7 +79,8 @@ def gestionar_clientes():
             cliente = cursor.fetchone() #fetchone crea una tupla con los datos del cliente
 
             if cliente:
-                print("¿Está seguro que desea eliminar el cliente:", cliente, "?")
+                print(f"¿Está seguro que desea eliminar los datos del cliente:")
+                print(f"Cuit:{cliente[0]} Razon Soial:{cliente[1]} Mail:{cliente[2]}?")
                 print("Esta acción no se puede deshacer ⚠️")
                 respuesta = input("Ingrese 'si' para confirmar o 'no' para cancelar: ")
                 if respuesta.lower() == 'si':
