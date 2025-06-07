@@ -1,6 +1,6 @@
 import gestion_clientes
-""" IDEAS DE NOMBRE DE MODULOS
 import gestion_destinos
+""" IDEAS DE NOMBRE DE MODULOS
 import gestion_ventas
 import ....
 """
@@ -21,7 +21,9 @@ while True:
     
     if opcion == "1":
         gestion_clientes.gestionar_clientes()  #cuando usamos alguna funcion de algun módulo primero nombremodulo.nombrefuncion()
-    elif opcion == "8":
+    elif opcion == "2":
+        gestion_destinos.gestionar_destinos()
+    elif opcion == "6":
         print("Seleccionó SALIR. \nGracias por usar Sistema de Gestión de Ventas de Skyroute. Hasta luego.")
         break
     else:
