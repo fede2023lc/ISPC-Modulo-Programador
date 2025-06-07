@@ -26,19 +26,17 @@ def gestionar_destinos():
             # Ingreso de datos
             precio = input ("Ingrese el precio: ")
             ciudad = input ("Ingrese la ciudad: ")
-            pais = input ( "Ingrese el pais: ")
-            codigo_destino = input ("Ingrese código de destino")
-            
+            pais = input ( "Ingrese el pais: ")            
             try:
                 # Consulta SQL para insertar
                 query = """
-                    INSERT INTO destinos (precio, ciudad, pais, codigo_destino)
+                    INSERT INTO destinos (precio, pais, ciudad)
                     VALUES (%s, %s, %s)
                 """
                 # %s es un marcador de posición para los valores que se van a insertar
                 # Los valores se pasan como una tupla al ejecutar la consulta
                 
-                cursor.execute(query, (precio, ciudad, pais, codigo_destino)) # Ejecutar consulta con los valores ingresados
+                cursor.execute(query, (precio, pais, ciudad)) # Ejecutar consulta con los valores ingresados
                 conector.commit()# Commit para guardar los cambios en la base de datos
                 
                 print(f"Ha agregado el Destino {ciudad} - {pais}")
@@ -110,3 +108,4 @@ def gestionar_destinos():
     conector.close()
 
 # gestionar_destinos()
+
