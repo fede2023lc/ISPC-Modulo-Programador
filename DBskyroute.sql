@@ -10,7 +10,7 @@ CREATE TABLE clientes (
 
 CREATE TABLE destinos (
   codigo_destino int AUTO_INCREMENT,
-  precio int,
+  precio FLOAT,
   ciudad varchar(60),
   pais varchar(60),
   PRIMARY KEY (codigo_destino)
