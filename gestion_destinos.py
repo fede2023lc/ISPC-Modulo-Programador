@@ -53,11 +53,9 @@ def gestionar_destinos():
             destinos = cursor.fetchall()   #fetchall crea una lista de destinos (lista de tuplas)
 
             if destinos:
-                print("Destinos registrados:")
-                print("(codigo_destino, precio, ciudad, pais)")
                 for x in destinos:
-                    print(x)
-                    print("=========")
+                    print(f"Código de Destino:{x[0]}     Precio:{x[1]}     Cuidad: {x[2]}    Pais: {x[3]}")
+                    print(".....................................................................")
             else:
                 print("No hay destinos registrados")
 
@@ -69,10 +67,10 @@ def gestionar_destinos():
             destino = cursor.fetchone()    #crea una tupla con los datos del destino.
 
             if destino:
-                print("Datos actuales del cliente:",destino)   #imprimo tupla destino
+                print("Datos actuales del Destino:",destino)   #imprimo tupla destino
                 precio=input("Ingrese nuevo precio del destino: ")
                 ciudad=input("Ingrese nueva ciudad del destino: ")
-                pais=input("Ingrese el nuevo pais del destino:") 
+                pais=input("Ingrese el nuevo país del destino:") 
 
                 cursor.execute("""
                 UPDATE destinos
@@ -109,5 +107,3 @@ def gestionar_destinos():
         print("=====================")
     cursor.close()
     conector.close()
-
-
