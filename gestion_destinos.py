@@ -53,6 +53,8 @@ def gestionar_destinos():
             destinos = cursor.fetchall()   #fetchall crea una lista de destinos (lista de tuplas)
 
             if destinos:
+                print("Destinos registrados:")
+                print("(codigo_destino, precio, ciudad, pais)")
                 for x in destinos:
                     print(x)
                     print("=========")
@@ -68,13 +70,14 @@ def gestionar_destinos():
 
             if destino:
                 print("Datos actuales del cliente:",destino)   #imprimo tupla destino
-                ciudad=input("Ingrese nueva ciudad de destino: ")
-                pais=input("Ingrese el nuevo pais de destino:") 
+                precio=input("Ingrese nuevo precio del destino: ")
+                ciudad=input("Ingrese nueva ciudad del destino: ")
+                pais=input("Ingrese el nuevo pais del destino:") 
 
                 cursor.execute("""
                 UPDATE destinos
-                SET ciudad =%s, pais =%s 
-                WHERE codigo_destino = %s""", (ciudad ,pais ,codigo_destino))
+                SET precio = %s, ciudad =%s, pais =%s 
+                WHERE codigo_destino = %s""", (precio, ciudad, pais, codigo_destino))
                 conector.commit() # Commit para guardar los cambios en la base de datos
                 print("Destino modificado")
             else:
@@ -82,7 +85,7 @@ def gestionar_destinos():
 
         elif opcion=="4": #eliminar destino
             codigo_destino=input("ingresar código del destino a  eliminar:") 
-            cursor.execute("SELECT * FROM destino WHERE codigo_destino = %s", (codigo_destino,))
+            cursor.execute("SELECT * FROM destinos WHERE codigo_destino = %s", (codigo_destino,))
             destino = cursor.fetchone() #fetchone crea una tupla con los datos del destino
 
             if destino:
@@ -90,7 +93,7 @@ def gestionar_destinos():
                 print("Esta acción no se puede deshacer ⚠️")
                 respuesta = input("Ingrese 'si' para confirmar o 'no' para cancelar: ")
                 if respuesta.lower() == 'si':
-                    sql = "DELETE FROM destinos WHERE cuit = %s "
+                    sql = "DELETE FROM destinos WHERE codigo_destino = %s "
                     cursor.execute(sql,(codigo_destino,)) 
                     conector.commit()
                     print(f"eliminó el destino: {destino}")
@@ -107,5 +110,4 @@ def gestionar_destinos():
     cursor.close()
     conector.close()
 
-# gestionar_destinos()
 
