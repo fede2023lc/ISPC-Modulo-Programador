@@ -11,7 +11,7 @@ def gestionar_clientes():
         print("5. Atrás")
         opcion= input("Ingrese opción:")
         print(f"Seleccionó opción: {opcion}")
-        conn, cursor = conectormysql.conectarDB()
+        conn, cursor = conectormysql.conectarDB() #conn y cursor son los return de la funcion conectarDB definida en el modulo conectormysql
 
         if opcion=="1": #agregar cliente
             print("Agregar nuevo cliente")
@@ -34,7 +34,7 @@ def gestionar_clientes():
 
         elif opcion=="2": #ver clientes
             print("Lista de Clientes de skyroute")
-            cursor.execute("SELECT * FROM clientes")
+            cursor.execute("SELECT * FROM clientes")#cursor 
             clientes = cursor.fetchall()   #crea una lista de tuplas de clientes
             
             if clientes:
