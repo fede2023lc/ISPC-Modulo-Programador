@@ -1,10 +1,7 @@
 import gestion_clientes
 import gestion_destinos
-""" IDEAS DE NOMBRE DE MODULOS
 import gestion_ventas
-import ....
-"""
-# Programa principal
+
 while True:
 
     print("==============================")
@@ -23,6 +20,17 @@ while True:
         gestion_clientes.gestionar_clientes()  #cuando usamos alguna funcion de algun módulo primero nombremodulo.nombrefuncion()
     elif opcion == "2":
         gestion_destinos.gestionar_destinos()
+    elif opcion == "3":
+        gestion_destinos.gestionar_ventas()
+    elif opcion == "4":
+        #botonArrepentimiento.boton_arrepentimiento()  # Aquí deberías implementar la función de arrepentimiento
+    elif opcion == "5":
+        print("Acerca del Sistema:")
+        print("Sistema de Gestión de Ventas de Skyroute")
+        print("Desarrollado por [Tu Nombre]")
+        print("Versión 1.0")
+        print("")
+        print("Este sistema permite gestionar clientes, destinos y ventas de manera eficiente.")
     elif opcion == "6":
         print("Seleccionó SALIR. \nGracias por usar Sistema de Gestión de Ventas de Skyroute. Hasta luego.")
         break
