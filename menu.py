@@ -32,9 +32,7 @@ while True:
         print("Desarrollado por Grupo PY S.R.L.")
         print("Este sistema permite gestionar clientes, destinos y ventas de manera eficiente.")
         print("Este software se encuentra protegido por la Ley de Propiedad Intelectual N.° 11.723 de la República Argentina.")
-        print("Este sistema almacena información personal. En cumplimiento con la Ley N.° 25.326 de Protección de los Datos Personales")
-        print("se garantiza que los datos serán tratados con confidencialidad, utilizados exclusivamente para")
-        print("fines operativos del sistema y no serán compartidos con terceros sin autorización del titular.")
+        print("Este sistema almacena información personal en cumplimiento con la Ley N.° 25.326 de Protección de los Datos Personales.")
     elif opcion == "6":
         print("Seleccionó SALIR. \nGracias por usar Sistema de Gestión de Ventas de Skyroute. Hasta luego.")
         break
