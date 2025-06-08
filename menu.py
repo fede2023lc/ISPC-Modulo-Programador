@@ -2,7 +2,7 @@ import gestion_clientes
 import gestion_destinos
 import gestion_ventas
 
-# Programa principal
+
 while True:
 
     print("==============================")
@@ -29,10 +29,12 @@ while True:
     elif opcion == "5":
         print("Acerca del Sistema:")
         print("Sistema de Gestión de Ventas de Skyroute")
-        print("Desarrollado por [Tu Nombre]")
-        print("Versión 1.0")
-        print("")
+        print("Desarrollado por Grupo PY S.R.L.")
         print("Este sistema permite gestionar clientes, destinos y ventas de manera eficiente.")
+        print("Este software se encuentra protegido por la Ley de Propiedad Intelectual N.° 11.723 de la República Argentina.")
+        print("Este sistema almacena información personal. En cumplimiento con la Ley N.° 25.326 de Protección de los Datos Personales")
+        print("se garantiza que los datos serán tratados con confidencialidad, utilizados exclusivamente para")
+        print("fines operativos del sistema y no serán compartidos con terceros sin autorización del titular.")
     elif opcion == "6":
         print("Seleccionó SALIR. \nGracias por usar Sistema de Gestión de Ventas de Skyroute. Hasta luego.")
         break
