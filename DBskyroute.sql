@@ -19,11 +19,11 @@ CREATE TABLE ventas (
   codigo_venta int AUTO_INCREMENT,
   codigo_destino int,
   cuit BIGINT,
-  fecha_de_venta date, 
-  cant_dias_de_viaje int,
-  Estado varchar(20),
+  fecha_de_venta date, -- fecha y hora los va generar python automaticamente
+  hora_de_venta time,
+  fecha_de_viaje varchar(20), -- acá un string a fines prácticos para que no haya errores de tipo cuando se ingresa fecha por teclado 
+  Estado varchar(20) DEFAULT 'ACTIVA',
   PRIMARY KEY (codigo_venta),
   FOREIGN KEY (codigo_destino) REFERENCES destinos(codigo_destino),
   FOREIGN KEY (cuit) REFERENCES clientes(cuit)
 );
-
