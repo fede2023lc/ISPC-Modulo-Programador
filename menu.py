@@ -22,7 +22,7 @@ while True:
     elif opcion == "2":
         gestion_destinos.gestionar_destinos()
     elif opcion == "3":
-        gestion_destinos.gestionar_ventas()
+        gestion_ventas.gestionar_ventas()
     elif opcion == "4":
         print("Botón de Arrepentimiento")
         #botonArrepentimiento.boton_arrepentimiento()  # Aquí deberías implementar la función de arrepentimiento
