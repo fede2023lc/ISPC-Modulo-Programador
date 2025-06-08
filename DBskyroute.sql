@@ -27,3 +27,12 @@ CREATE TABLE ventas (
   FOREIGN KEY (codigo_destino) REFERENCES destinos(codigo_destino),
   FOREIGN KEY (cuit) REFERENCES clientes(cuit)
 );
+INSERT INTO clientes VALUES
+(100, 'Arcor' ,'arcor@mail.com'),
+(101, 'Quilmes' ,'quilmes@mail.com'),
+(102, 'Coca-cola' ,'cocacola@mail.com');
+
+INSERT INTO destinos (precio, ciudad, pais) VALUES 
+(300, 'arroyito' ,'Argentina'),
+(500, 'Sao Paulo' ,'Brasil'),
+(700, 'Los Angeles' ,'USA');
