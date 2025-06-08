@@ -2,6 +2,7 @@ import gestion_clientes
 import gestion_destinos
 import gestion_ventas
 
+# Programa principal
 while True:
 
     print("==============================")
@@ -23,6 +24,7 @@ while True:
     elif opcion == "3":
         gestion_destinos.gestionar_ventas()
     elif opcion == "4":
+        print("Botón de Arrepentimiento")
         #botonArrepentimiento.boton_arrepentimiento()  # Aquí deberías implementar la función de arrepentimiento
     elif opcion == "5":
         print("Acerca del Sistema:")
