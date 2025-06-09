@@ -23,7 +23,7 @@ def gestionar_clientes():
                 cuit = input("Cuit (11 dígitos): ")
                 if validar_cuit(cuit):
                     break
-                print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos sin guíones ni puntos.")
+                print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos.")
 
             razon_social = input("Razón Social: ")
             mail = input("Ingrese mail: ")
