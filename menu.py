@@ -2,8 +2,7 @@ import gestion_clientes
 import gestion_destinos
 import gestion_ventas
 import boton_de_arrepentimiento
-
-#Menú principal
+#menú principal
 while True:
 
     print("==============================")
