@@ -1,10 +1,34 @@
 # ISPC-Modulo-Programador
-Hola compañeros, estuve creando una propuesta para gestion clientes (hasta ahora carga y elimina clientes en la base de datos skyroute.
+# Sistema de Gestión de Ventas - Skyroute
+Este proyecto fue desarrollado como parte de la carrera "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial" en el ISPC.
 
-Para probar el código:
-- tiene que descargar los archivos 3 .py en una carpeta (menu ; conector ; gestion clientes)
-- abrir esa carpeta con Visual Studio
-- es necesario tener creada la base de datos skyroute.sql
-- y que completen el conector con los datos de admin:  y password:   correspondientes a su sistema
+El sistema permite gestionar clientes, destinos y ventas de una agencia de viajes llamada Skyroute, con conexión a una base de datos MySQL.
 
-Esta propuesta nos puede servir como base para hacer gestion destinos y gestion ventas.
+# Funcionalidades principales
+* *Gestión de clientes*: alta, modificación, consulta y baja de clientes.
+* *Gestión de destinos*: creación, modificación, listado y eliminación de destinos turísticos.
+* *Gestión de ventas*: registro de ventas, consulta y anulación.
+* *Botón de arrepentimiento*: permite anular una venta dentro de los primeros 5 minutos.
+
+# Tecnologías utilizadas
+* Python 3
+* MySQL
+* Visual Studio Code
+
+# Estructura del sistema
+* menu.py: menú principal del sistema.
+* conectormysql.py: gestiona la conexión con la base de datos.
+* gestion_clientes.py: módulo de operaciones sobre clientes.
+* gestion_destinos.py: módulo de operaciones sobre destinos.
+* gestion_ventas.py: módulo de operaciones sobre ventas.
+* boton_de_arrepentimiento.py: módulo para anulación reciente de ventas.
+
+# Cómo ejecutar
+1. Crear la base de datos skyroute en MySQL con el archivo DB_skyroute.sql.
+2. Editar conectormysql.py y completar usuario y contraseña local.
+3. Ejecutar menu.py desde Visual Studio Code o terminal.
+
+# Créditos
+Proyecto realizado por Dante Coledas, Federico López, Emanuel Toledo y Mariela Yacci, estudiantes del ISPC como evidencia integradora de los módulos de programación y bases de datos.
+
+Fecha de entrega: 08-06-2025
