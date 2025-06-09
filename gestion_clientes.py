@@ -14,8 +14,6 @@ def gestionar_clientes():
         opcion = input("Ingrese opción:")
         print(f"Seleccionó opción: {opcion}")
         conector, cursor = conectormysql.conectarDB()
-#conector y cursor son los return de la funcion conectarDB definida en el modulo conectormysql.py
-#conector es la conexion a la base de datos y cursor es el cursor para ejecutar consultas SQL
 
         if opcion == "1":  # Agregar cliente
             print("Agregar nuevo cliente")
@@ -35,23 +33,17 @@ def gestionar_clientes():
                     INSERT INTO clientes (cuit, razon_social , mail)
                     VALUES (%s, %s, %s)
                 """
-                # %s es un marcador de posición para los valores que se van a insertar
-                # Los valores se pasan como una tupla al ejecutar la consulta
                 cursor.execute(query, (cuit, razon_social, mail))
                 conector.commit()
                 print(f"Ha agregado al cliente {razon_social} CUIT: {cuit}")
             except Exception as e:
                 print("Error al agregar cliente:", e)
-        # Si ocurre un error, se captura la excepción y se imprime un mensaje de error
-        #Acá pueden ocurrir varios tipos de errores al ingresar datos por teclado, como por ejemplo:
-        # - Error de duplicado de clave primaria (si el cuit ya existe) 
-        # - Error de tipo de dato (si se ingresa letras en lugar de números en el cuit)
 
         elif opcion == "2":  # Ver clientes
             print("Lista de Clientes de skyroute")
             print("================================")
-            cursor.execute("SELECT * FROM clientes")#consulta SQL para seleccionar todos los clientes
-            clientes = cursor.fetchall() #fetchall crea una lista de clientes (lista de tuplas)
+            cursor.execute("SELECT * FROM clientes")
+            clientes = cursor.fetchall()
 
             if clientes:
                 for x in clientes:
@@ -69,7 +61,7 @@ def gestionar_clientes():
                 print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos.")
 
             cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
-            cliente = cursor.fetchone() #crea una tupla con los datos del cliente.
+            cliente = cursor.fetchone()
 
             if cliente:
                 print("Datos actuales del cliente:", cliente)
@@ -95,7 +87,7 @@ def gestionar_clientes():
             cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
             cliente = cursor.fetchone()
 
-            if cliente: #podemos usar if cliente: porque si no encuentra el cliente, devuelve None y lo toma como False
+            if cliente:
                 print("¿Está seguro que desea eliminar los datos del cliente:")
                 print(f"CUIT: {cliente[0]}  |  Razón Social: {cliente[1]}  |  Mail: {cliente[2]}?")
                 print("Esta acción no se puede deshacer ⚠️")
@@ -117,4 +109,3 @@ def gestionar_clientes():
         print("================================")
         cursor.close()
         conector.close()
-gestionar_clientes()
