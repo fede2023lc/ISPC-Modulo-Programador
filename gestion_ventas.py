@@ -8,7 +8,7 @@ def gestionar_ventas():
         print("1. Registrar una nueva venta")
         print("2. Consultar ventas")
         print("3. Anular una venta")
-        print("4. Salir")
+        print("4. Volver al menú principal")
     
 
 
@@ -19,7 +19,7 @@ def gestionar_ventas():
             print("Registrar una nueva venta")
             codigo_destino = input("Ingrese el codigo destino: ")
             cuit = input("Ingrese el cuit del cliente: ")
-            fecha_de_viaje = input("(ingresar cantidad de dias (Ingrese la fecha de viaje (YYYY-MM-DD):) ")
+            fecha_de_viaje = input("(ingresar cantidad de dias (Ingrese la fecha de viaje (DD-MM-YYYY):) ")
             
             try:
                 fecha_de_venta = datatime.datetime.now().strftime("%Y-%m-%d")
