@@ -28,7 +28,7 @@ def boton_arrepentimiento():
             ahora = datetime.now()
 
             # Calcular si pasaron más de 5 minutos
-            if ahora - fecha_hora_venta <= timedelta(minutes=5):
+            if ahora - fecha_hora_venta <= timedelta(seconds=20):#usamos una escala en la que 20 segundos equivale a 60 dias
                 # Actualizar estado de la venta
                 cursor.execute(
                     "UPDATE ventas SET estado = 'Anulada' WHERE codigo_venta = %s",
@@ -39,7 +39,7 @@ def boton_arrepentimiento():
                     "✅ Venta anulada correctamente dentro del plazo de arrepentimiento."
                 )
             else:
-                print("⏱️ El plazo de 5 minutos para anular la venta ha expirado.")
+                print("⏱️ El plazo de 60 días para anular la venta ha expirado.")
 
     cursor.close()
     conector.close()
