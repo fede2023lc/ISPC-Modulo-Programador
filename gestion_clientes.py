@@ -8,7 +8,7 @@ def gestionar_clientes():
         print("2. Ver clientes")
         print("3. Modificar cliente")
         print("4. Eliminar cliente")
-        print("5. Atrás")
+        print("5. Volver al menú principal")
         opcion= input("Ingrese opción:")
         print(f"Seleccionó opción: {opcion}")
         conector, cursor = conectormysql.conectarDB() 
@@ -47,7 +47,7 @@ def gestionar_clientes():
 
             if clientes:
                 for x in clientes:
-                    print(f"Cuit:{x[0]}     Razon Social:{x[1]}     Mail: {x[2]}")
+                    print(f"Cuit:{x[0]}  |   Razon Social:{x[1]}  |   Mail: {x[2]}")
                     print(".....................................................................")
             else:
                 print("No hay clientes registrados")
