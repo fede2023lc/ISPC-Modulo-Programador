@@ -1,6 +1,8 @@
-import conectormysql  #módulo para obtener el conector y cursor de MySQL para poder hacer modificaciones en la base de datos skyroute
+import conectormysql  # módulo para obtener el conector y cursor de MySQL
 
 def gestionar_clientes():
+    def validar_cuit(cuit):
+        return cuit.isdigit() and len(cuit) == 11
 
     while True:
         print("Gestionar clientes")
@@ -9,95 +11,101 @@ def gestionar_clientes():
         print("3. Modificar cliente")
         print("4. Eliminar cliente")
         print("5. Volver al menú principal")
-        opcion= input("Ingrese opción:")
+        opcion = input("Ingrese opción:")
         print(f"Seleccionó opción: {opcion}")
-        conector, cursor = conectormysql.conectarDB() 
-        #conector y cursor son los return de la funcion conectarDB definida en el modulo conectormysql.py
-        #conector es la conexion a la base de datos y cursor es el cursor para ejecutar consultas SQL
-        if opcion=="1": #agregar cliente
+        conector, cursor = conectormysql.conectarDB()
+
+        if opcion == "1":  # Agregar cliente
             print("Agregar nuevo cliente")
             print("Ingrese los datos del cliente")
-            # Ingreso de datos
-            cuit = input("Cuit: ")
-            razon_social = input("Razon Social: ")
-            mail = input("ingresar mail: ")
-            
+
+            while True:
+                cuit = input("Cuit (11 dígitos): ")
+                if validar_cuit(cuit):
+                    break
+                print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos sin guíones ni puntos.")
+
+            razon_social = input("Razón Social: ")
+            mail = input("Ingrese mail: ")
+
             try:
-                # Consulta SQL para insertar
                 query = """
                     INSERT INTO clientes (cuit, razon_social , mail)
                     VALUES (%s, %s, %s)
                 """
-                # %s es un marcador de posición para los valores que se van a insertar
-                # Los valores se pasan como una tupla al ejecutar la consulta
-                cursor.execute(query, (cuit, razon_social, mail)) # Ejecutar consulta con los valores ingresados
-                conector.commit()# Commit para guardar los cambios en la base de datos
-                print(f"Ha agregado al cliente {razon_social} Cuit: {cuit}")
+                cursor.execute(query, (cuit, razon_social, mail))
+                conector.commit()
+                print(f"Ha agregado al cliente {razon_social} CUIT: {cuit}")
             except Exception as e:
                 print("Error al agregar cliente:", e)
-        # Si ocurre un error, se captura la excepción y se imprime un mensaje de error
-        #Acá pueden ocurrir varios tipos de errores al ingresar datos por teclado, como por ejemplo:
-        # - Error de duplicado de clave primaria (si el cuit ya existe) 
-        # - Error de tipo de dato (si se ingresa letras en lugar de números en el cuit)
-        elif opcion=="2": #ver clientes
+
+        elif opcion == "2":  # Ver clientes
             print("Lista de Clientes de skyroute")
             print("================================")
-            cursor.execute("SELECT * FROM clientes")#consulta SQL para seleccionar todos los clientes
-            clientes = cursor.fetchall()   #fetchall crea una lista de clientes (lista de tuplas)
+            cursor.execute("SELECT * FROM clientes")
+            clientes = cursor.fetchall()
 
             if clientes:
                 for x in clientes:
-                    print(f"Cuit:{x[0]}  |   Razon Social:{x[1]}  |   Mail: {x[2]}")
+                    print(f"CUIT: {x[0]}  |   Razón Social: {x[1]}  |   Mail: {x[2]}")
                     print(".....................................................................")
             else:
                 print("No hay clientes registrados")
 
-        elif opcion=="3": #modifcar
+        elif opcion == "3":  # Modificar cliente
             print("Modificar cliente")
-            cuit = input("Ingrese el cuit del cliente que desea modificar: ")
-            cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,)) #Consulta SQL para seleccionar el cliente por cuit
-            # %s es un marcador de posición para el valor del cuit
-            cliente = cursor.fetchone()    #crea una tupla con los datos del cliente.
+            while True:
+                cuit = input("Ingrese el CUIT del cliente que desea modificar (11 dígitos): ")
+                if validar_cuit(cuit):
+                    break
+                print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos.")
+
+            cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
+            cliente = cursor.fetchone()
 
             if cliente:
-                print("Datos actuales del cliente:",cliente)   #imprimo tupla cliente
-                razon_social=input("Ingrese la nueva razón social: ")
-                mail=input("Ingrese el nuevo mail:") #el cuit no se modifica, ya que es la clave primaria
+                print("Datos actuales del cliente:", cliente)
+                razon_social = input("Ingrese la nueva razón social: ")
+                mail = input("Ingrese el nuevo mail:")
 
                 cursor.execute("""
-                UPDATE clientes
-                SET razon_social =%s, mail =%s 
-                WHERE cuit = %s""", (razon_social ,mail,cuit))
-                conector.commit() # Commit para guardar los cambios en la base de datos
-                print("cliente modificado")
+                    UPDATE clientes
+                    SET razon_social = %s, mail = %s 
+                    WHERE cuit = %s""", (razon_social, mail, cuit))
+                conector.commit()
+                print("Cliente modificado")
             else:
-                print("No se encontro cliente con ese cuit")
+                print("No se encontró cliente con ese CUIT")
 
-        elif opcion=="4": #eliminar cliente
-            cuit=input("ingresar cuit del cliente que quiera eliminar:") 
+        elif opcion == "4":  # Eliminar cliente
+            while True:
+                cuit = input("Ingrese el CUIT del cliente que desea eliminar (11 dígitos): ")
+                if validar_cuit(cuit):
+                    break
+                print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos.")
+
             cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
-            cliente = cursor.fetchone() #fetchone crea una tupla con los datos del cliente
+            cliente = cursor.fetchone()
 
             if cliente:
-                print(f"¿Está seguro que desea eliminar los datos del cliente:")
-                print(f"Cuit:{cliente[0]} Razon Soial:{cliente[1]} Mail:{cliente[2]}?")
+                print("¿Está seguro que desea eliminar los datos del cliente:")
+                print(f"CUIT: {cliente[0]}  |  Razón Social: {cliente[1]}  |  Mail: {cliente[2]}?")
                 print("Esta acción no se puede deshacer ⚠️")
                 respuesta = input("Ingrese 'si' para confirmar o 'no' para cancelar: ")
                 if respuesta.lower() == 'si':
-                    sql = "DELETE FROM clientes WHERE cuit = %s "
-                    cursor.execute(sql,(cuit,)) 
+                    cursor.execute("DELETE FROM clientes WHERE cuit = %s", (cuit,))
                     conector.commit()
-                    print(f"elimino el cliente cuit: {cuit}")
+                    print(f"Eliminó el cliente CUIT: {cuit}")
                 else:
                     print("Eliminación cancelada.")
             else:
-                print("No se encontro cliente con ese cuit")
+                print("No se encontró cliente con ese CUIT")
 
-        elif opcion=="5":
+        elif opcion == "5":
             break
         else:
-            print("Opción no valida.")
+            print("Opción no válida.")
+        
         print("================================")
-    cursor.close()
-    conector.close()
-
+        cursor.close()
+        conector.close()
