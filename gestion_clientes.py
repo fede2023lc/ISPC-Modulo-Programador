@@ -38,12 +38,15 @@ def gestionar_clientes():
                 print(f"Ha agregado al cliente {razon_social} CUIT: {cuit}")
             except Exception as e:
                 print("Error al agregar cliente:", e)
+        #Acá pueden ocurrir varios tipos de errores al ingresar datos por teclado, como por ejemplo:
+        # - Error de duplicado de clave primaria (si el cuit ya existe) 
+        # - Error de tipo de dato (si se ingresa letras en lugar de números en el cuit)
 
         elif opcion == "2":  # Ver clientes
             print("Lista de Clientes de skyroute")
             print("================================")
             cursor.execute("SELECT * FROM clientes")
-            clientes = cursor.fetchall()
+            clientes = cursor.fetchall()  #crea una lista de tuplas con los datos del cliente
 
             if clientes:
                 for x in clientes:
@@ -61,7 +64,7 @@ def gestionar_clientes():
                 print("CUIT inválido. Debe tener exactamente 11 dígitos numéricos.")
 
             cursor.execute("SELECT * FROM clientes WHERE cuit = %s", (cuit,))
-            cliente = cursor.fetchone()
+            cliente = cursor.fetchone() #crea una tupla con los datos del cliente
 
             if cliente:
                 print("Datos actuales del cliente:", cliente)
